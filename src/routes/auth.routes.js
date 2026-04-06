@@ -35,13 +35,5 @@ authRouter.post("/login", loginValidator, login);
  */
 authRouter.get('/get-me', authUser, getMe)
 
-/**
- * @route GET /api/auth/verify-email
- * @desc Verify user's email address
- * @access Public
- * @query { token }
- */
-// authRouter.get("/verify-email", verifyEmail);
-
 
 export default authRouter;
