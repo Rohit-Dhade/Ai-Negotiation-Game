@@ -1,4 +1,4 @@
-import Game from "../../models/Game.js";
+import Game from "../../models/game.model.js";
 import { createGameInstance } from "./game.factory.js";
 import {
   increamentRound,

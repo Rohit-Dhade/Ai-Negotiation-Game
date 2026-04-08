@@ -1,7 +1,9 @@
-import express from 'express';
-import authRouter from './routes/auth.routes.js';
-import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
+import express from "express";
+import authRouter from "./routes/auth.routes.js";
+import gameRouter from "./routes/game.routes.js";
+import messageRouter from "./routes/message.routes.js";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
@@ -9,10 +11,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get("/health", (req, res) => {
+  res.send("Server is running!");
 });
 
-app.use('/api/auth', authRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/game", gameRouter);
+app.use("/api/messages", messageRouter);
 
 export default app;
