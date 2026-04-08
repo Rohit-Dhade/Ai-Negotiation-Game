@@ -2,6 +2,9 @@ import { analyzeIntent } from "./intent.analyzer.js";
 import { calculateNextPrice } from "./price.engine.js";
 import { applyStrategy } from "./strategy.handler.js";
 import { advanceRound, checkGameStatus } from "./round.manager.js";
+import { buildPrompt } from "../ai/prompt.builder.js";
+import { generateAIResponse } from "../ai/ai.service.js";
+import { parseAIResponse } from "../ai/response.parser.js";
 
 export const processUserMessage = async ({ game, UserMessage }) => {
   const intent = analyzeIntent(UserMessage);
@@ -20,14 +23,18 @@ export const processUserMessage = async ({ game, UserMessage }) => {
   game.currentPrice = modifiedPrice;
   game.status = status;
 
+  const prompt = buildPrompt({ game, tone, UserMessage, price: modifiedPrice });
+  const rawAIResponse = await generateAIResponse(prompt);
+  const aiText = parseAIResponse(rawAIResponse);
+
   game.message.push(
-    { role: "user", content: UserMessage },
-    { role: "ai", content: `AI offers $${modifiedPrice} with a ${tone} tone.` },
+    { role: "user", text: UserMessage },
+    { role: "ai", text: aiText },
   );
   await game.save();
 
   return {
-    aiResponse: `I can offer you ₹${modifiedPrice}.`,
+    aiResponse: aiText,
     price: modifiedPrice,
     status,
     tone,
