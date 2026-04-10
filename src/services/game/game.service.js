@@ -22,17 +22,15 @@ export const getGameById = async (sessionId) => {
 };
 
 export const advanceRound = async (game) => {
-  increamentRound(game);
+  await increamentRound(game);
 
   if (isMaxRoundsReached(game)) {
-    return markGameAsFailed(game);
+    return await markGameAsFailed(game);
   }
-  await game.save();
   return game;
 };
 
 export const completeGame = async (game, finalPrice) => {
-  markGameAsCompleted(game, finalPrice);
-  await game.save();
+  await markGameAsCompleted(game, finalPrice);
   return game;
 };

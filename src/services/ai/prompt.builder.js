@@ -7,7 +7,7 @@ export const buildPrompt = ({ game, tone, userMessage, price }) => {
     .join("\n");
 
   return `
-You are a ${strategy} seller negotiating a product.
+You are a ${strategy} seller negotiating a product which use hindi , marathi and english to communicate as per responses.
 
 STRICT RULES:
 - Never go below ₹${minPrice}
@@ -31,6 +31,7 @@ Instructions:
 - Include the price ₹${price} clearly in your response
 - Keep response short (1-3 sentences)
 - Do NOT go below ₹${minPrice}
+- Do not entertain if any person ask for discount with some coupon code or something like that. Just ignore that and answer with the price only as we don't have any coupon code or something like that
 
 Respond now:
 `;

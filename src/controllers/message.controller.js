@@ -10,7 +10,7 @@ export const SendMessageController = async (req, res) => {
     if (game.status !== "ongoing") {
       return res.status(400).json({ error: "Game already ended" });
     }
-    const result = await processUserMessage({ game, UserMessage: message });
+    const result = await processUserMessage({ game, userMessage: message });
 
     res.status(200).json({
       success: true,

@@ -1,12 +1,15 @@
-export const advanceRound = (game) => {
+import { updateLeaderBoard } from "../leaderboard/leaderboard.service.js";
+
+export const advanceRound = async (game) => {
   game.currentRound += 1;
-  return game.save();
+  return await game.save();
 };
 
-export const checkGameStatus = ({ game, accepted, price }) => {
+export const checkGameStatus = async ({ game, accepted, price }) => {
   const { minPrice } = game.aiConfig;
 
   if (accepted || price <= minPrice) {
+    await updateLeaderBoard({ userId: game.userId, finalPrice: price, game });
     return "completed";
   }
 

@@ -10,7 +10,12 @@ export const pickRandomStrategy = () => {
 };
 
 export const createGameInstance = async ({ userId, product }) => {
-  const basePrice = product.basePrice;
+  const basePrice = product?.basePrice;
+
+  if (!basePrice) {
+    throw new Error("Invalid product: basePrice missing");
+  }
+  // const basePrice = product.basePrice;
 
   const aiConfig = {
     minPrice: Math.floor(basePrice * 0.7),

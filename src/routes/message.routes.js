@@ -3,6 +3,6 @@ import { SendMessageController } from "../controllers/message.controller.js";
 
 const messageRouter = express.Router();
 
-messageRouter.post("/:id/messages", SendMessageController);
+messageRouter.post("/:sessionId/message", SendMessageController);
 
 export default messageRouter;

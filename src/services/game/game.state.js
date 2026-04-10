@@ -1,19 +1,19 @@
-export const increamentRound = (game) => {
+export const increamentRound = async (game) => {
   game.currentRound += 1;
-  return game.save();
+  return await game.save();
 };
 
 export const isMaxRoundsReached = (game) => {
   return game.currentRound >= game.maxRounds;
 };
 
-export const markGameAsCompleted = (game, finalPrice) => {
+export const markGameAsCompleted = async (game, finalPrice) => {
   game.status = "completed";
   game.finalPrice = finalPrice;
-  return game.save();
+  return await game.save();
 };
 
-export const markGameAsFailed = (game) => {
+export const markGameAsFailed = async (game) => {
   game.status = "failed";
-  return game.save();
+  return await game.save();
 };
